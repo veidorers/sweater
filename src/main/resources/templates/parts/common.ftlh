@@ -1,4 +1,6 @@
-<#macro page>
+<#macro page user>
+<#import "navbar.ftlh" as n>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
 
 </head>
 <body>
-<#include "navbar.ftlh">
+<@n.navbar user></@n.navbar>
 <div class="container mt-5">
 <#nested>
 </div>

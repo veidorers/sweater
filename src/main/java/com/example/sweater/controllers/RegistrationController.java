@@ -4,12 +4,14 @@ import com.example.sweater.domain.User;
 import com.example.sweater.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
@@ -24,17 +26,19 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
-        if(user.getPassword() != null && !user.getPassword().equals(user.getPassword2())) {
+    public String addUser(@Valid User newUser,
+                          BindingResult bindingResult,
+                          Model model) {
+        if (newUser.getPassword() != null && !newUser.getPassword().equals(newUser.getPassword2())) {
             model.addAttribute("passwordError", "Passwords are different!");
         }
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errors);
             return "registration";
         }
 
-        if (!userService.add(user)) {
+        if (!userService.add(newUser)) {
             model.addAttribute("usernameError", "User already exists!");
             return "registration";
         }
@@ -45,13 +49,25 @@ public class RegistrationController {
     @GetMapping("/activate/{code}")
     public String activate(Model model, @PathVariable String code) {
         boolean isActivated = userService.activateUser(code);
-        if(isActivated) {
+        if (isActivated) {
+            model.addAttribute("messageType", "success");
             model.addAttribute("message", "User successfully activated");
         } else {
+            model.addAttribute("messageType", "danger");
             model.addAttribute("message", "Activation code is not found");
         }
 
 
         return "login";
     }
+
+    @GetMapping("/loginError")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
+
+
+
 }
+

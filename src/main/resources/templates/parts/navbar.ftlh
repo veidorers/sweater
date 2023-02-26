@@ -1,4 +1,4 @@
-
+<#macro navbar user>
 <#import "login.ftlh" as l>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -15,21 +15,28 @@
             <li class="nav-item">
                 <a class="nav-link" href="/main">Messages</a>
             </li>
-<#--            <#if user??>-->
-<#--                <div class = "navbar-text">${(user.username)!}</div>-->
-<#--                <#if isAdmin>-->
-<#--                <li class="nav-item">-->
-<#--                    <a class="nav-link" href="/user">User list</a>-->
-<#--                </li>-->
-<#--                </#if>-->
-<#--            </#if>-->
+            <#if user?has_content>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/profile">Profile</a>
+                </li>
 
-          <li class="nav-item">
-              <a class="nav-link" href="/user/profile">Profile</a>
-          </li>
+                <#if user.admin>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user">User list</a>
+                </li>
+                </#if>
+
+            </#if>
 
         </ul>
 
-        <@l.logout/>
+        <#if user?has_content>
+            <div class = "navbar-text mr-3">${user.username}</div>
+            <@l.logout/>
+            <#else>
+                unknown
+        </#if>
+
     </div>
 </nav>
+</#macro>

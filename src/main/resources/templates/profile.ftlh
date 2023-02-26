@@ -1,5 +1,5 @@
 <#import "parts/common.ftlh" as c>
-<@c.page>
+<@c.page user>
 ${message!}
 <h5>${username}</h5>
 <form method="post">

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -128,4 +129,6 @@ public class UserService implements UserDetailsService {
     public User getUserByAuthentication(Authentication authentication) {
         return userRepository.findByUsername(authentication.getName());
     }
+
+    
 }

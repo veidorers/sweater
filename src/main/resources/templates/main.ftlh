@@ -1,7 +1,7 @@
 <#import "parts/common.ftlh" as c>
 
 
-<@c.page>
+<@c.page user>
     <div class = "form-row">
         <form method="get" action="/main" class="form-inline">
             <input type="text" name="filter" class="form-control" value="${(filter)!}" placeholder="Search by tag" />

@@ -1,6 +1,6 @@
 <#import "parts/common.ftlh" as c>
 
-<@c.page>
+<@c.page user>
     User editor
 
     <form action="/user" method="post">
