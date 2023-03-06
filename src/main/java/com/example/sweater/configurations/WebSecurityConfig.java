@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/registration").anonymous()
                         .anyRequest().authenticated()
                 )
+
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .failureHandler(authenticationFailureHandler())
