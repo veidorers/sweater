@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
         if(!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
-                            "Welcome to Sweater. Please, visit next link: http://localhost:8080/activate/%s", user.getUsername(), user.getActivationCode()
+                            "Welcome to Sweater. Please, visit next link: https://localhost:8080/activate/%s", user.getUsername(), user.getActivationCode()
             );
             mailSender.send(user.getEmail(), "Authorization code", message);
         }
@@ -101,7 +101,7 @@ public class UserService implements UserDetailsService {
     public void updateProfile(User user, String password, String email) {
         String userEmail = user.getEmail();
 
-        boolean isEmailChanged = (email != null && !email.equals(userEmail) || userEmail != null && !userEmail.equals(email));
+        boolean isEmailChanged = (email != null && !email.equals(userEmail) && !email.equals(""));
 
         if(isEmailChanged) {
             user.setEmail(email);
@@ -111,7 +111,7 @@ public class UserService implements UserDetailsService {
             }
         }
         if(!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
+            user.setPassword(passwordEncoder.encode(password));
         }
 
         userRepository.save(user);
