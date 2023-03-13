@@ -17,6 +17,9 @@
             </li>
             <#if user?has_content>
                 <li class="nav-item">
+                    <a class="nav-link" href="/user-messages/${user.id}">My messages</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/user/profile">Profile</a>
                 </li>
 
